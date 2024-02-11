@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Libraries</title>
+  <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: fit-content;
+            margin-left: 100px;
+        }
+        th, td {
+            border: 1px solid #a29884;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #abd3da;
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+            text-align: center;
+            margin-left: 100px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4c9baf;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            margin-left: 100px;
+            width: auto;
+            text-align: center;
+
+
+        }
+        .button:hover {
+            background-color: #4554a0;
+        }
+        a {
+            color: #4588a0;
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4c82af;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #4551a0;
+        }
+        .button-column{
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<h1 style="text-align: left; margin-left : 400px; color: #202d6c">Список книг</h1>
+<form action="/library/addbook" method="get">
+  <input type="submit" value="Добавить книгу" class="button">
+</form>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Название книги</th>
+    <th>Автор</th>
+    <th class="button-column">Детали</th>
+    <th class="button-column">Редактировать</th>
+    <th class="button-column">Удалить</th>
+  </tr>
+  </tr>
+  <tr th:each="book : ${books}">
+    <td th:text="${book.id}">1</td>
+    <td th:text="${book.name}">Book Title</td>
+    <td th:text="${book.author}">Author Name</td>
+    <td>
+      <form th:action="@{/library/{id}(id=${book.id})}" method="get">
+        <input type="submit" value="Подробнее" class="button">
+      </form>
+    </td>
+    <td>
+      <a th:href="@{/library/editbook/{id}(id=${book.id})}" class="button">Редактировать</a>
+    </td>
+    <td>
+      <form th:action="@{/library/deleteBook/{id}(id=${book.id})}" method="post">
+        <input type="submit" value="Удалить" class="button">
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
